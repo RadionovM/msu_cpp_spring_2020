@@ -2,8 +2,11 @@
 
 all: test
 
-test: allocator.cpp
-	g++ -std=c++14 allocator.cpp -o test
+test_bin: allocator.cpp
+	g++ -std=c++14 allocator.cpp -o test_bin
+
+test: test_bin
+	./test_bin
 
 clean:
-	rm test
+	-(rm test_bin)
