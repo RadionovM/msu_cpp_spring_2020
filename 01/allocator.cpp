@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <new>
 
 #include "allocator.hpp"
 
@@ -12,7 +13,7 @@ void makeAllocator(size_t maxSize)
     if(data)
         delete[] data;
     data = nullptr;
-    data = new uint8_t[maxSize];
+    data = new(std::nothrow) uint8_t[maxSize];
     if(!data)
     {
         fprintf(stderr,"Cant alloc memory, exit\n");
