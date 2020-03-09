@@ -11,6 +11,7 @@ void makeAllocator(size_t maxSize)
 {
     if(data)
         delete[] data;
+    data = nullptr;
     data = new uint8_t[maxSize];
     if(!data)
     {
