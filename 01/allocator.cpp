@@ -16,8 +16,8 @@ void makeAllocator(size_t maxSize)
     data = new(std::nothrow) uint8_t[maxSize];
     if(!data)
     {
-        fprintf(stderr,"Cant alloc memory, exit\n");
-        exit(1);
+        fprintf(stderr,"Cant alloc memory\n");
+        return;
     }
     ::maxSize = maxSize;
 }
@@ -41,4 +41,5 @@ void free_memory()
 {
     if(data)
         delete[] data;
+    data = nullptr;
 }
