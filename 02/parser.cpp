@@ -5,13 +5,10 @@ static std::function<void()> end_call;
 static std::function<void(const char*)> number_call;
 static std::function<void(const char*)> string_call;
 
-void parse(const char* text)
+bool parse(const char* text)
 {
     if(!begin_call || !end_call || !string_call || !number_call)
-    {
-        fprintf(stderr,"You should set all callback functions firstly\n");
-        return;
-    }
+        return false;
     begin_call();
     std::string token;
     char cur;
@@ -31,7 +28,16 @@ void parse(const char* text)
         else
             token += cur;
     }
+    if(!token.empty())
+    {
+        if(token[0] >= '0' && token[0] <= '9')
+            number_call(token.c_str());
+        else
+            string_call(token.c_str());
+        token.erase();
+    }
     end_call();
+    return true;
 }
 
 void registre_string_callback(std::function<void(const char*)> func)
@@ -46,7 +52,7 @@ void registre_number_callback(std::function<void(const char*)> func)
 
 void registre_begin(std::function<void()> func)
 {
-    begin_call = func; 
+    begin_call = func;
 }
 
 void registre_end(std::function<void()> func)
