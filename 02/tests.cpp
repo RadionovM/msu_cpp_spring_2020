@@ -15,9 +15,9 @@ void deinit()
     end = false;
 }
 
-void number_call(const char* str)
+void number_call(uint64_t number)
 {
-    numbers += str;
+    numbers += std::to_string(number);
 }
 
 void string_call(const char* str)
