@@ -1,10 +1,13 @@
 #include "parser.hpp"
 #include <cstdlib>
 
-static std::function<void()> begin_call;
-static std::function<void()> end_call;
-static std::function<void(uint64_t)> number_call;
-static std::function<void(const char*)> string_call;
+namespace libparser
+{
+
+static BeginEndCall begin_call;
+static BeginEndCall end_call;
+static NumberCall number_call;
+static StringCall string_call;
 
 bool parse(const char* text)
 {
@@ -35,22 +38,24 @@ bool parse(const char* text)
     return true;
 }
 
-void register_string_callback(std::function<void(const char*)> func)
+void register_string_callback(StringCall func)
 {
    string_call = func;
 }
 
-void register_number_callback(std::function<void(uint64_t)> func)
+void register_number_callback(NumberCall func)
 {
     number_call = func;
 }
 
-void register_begin(std::function<void()> func)
+void register_begin(BeginEndCall func)
 {
     begin_call = func;
 }
 
-void register_end(std::function<void()> func)
+void register_end(BeginEndCall func)
 {
     end_call = func;
 }
+
+}//namespace libparser

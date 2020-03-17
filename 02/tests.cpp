@@ -1,4 +1,3 @@
-#include <functional>
 #include <assert.h>
 #include "parser.hpp"
 
@@ -41,6 +40,7 @@ int main()
 {
     //tests
     //not all callbacks
+    using namespace libparser;
     register_string_callback(string_call);
     register_begin(begin_call);
     register_end(end_call);
