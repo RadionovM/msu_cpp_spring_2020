@@ -40,6 +40,7 @@ int& Matrix::Row::operator [](size_t i)
 {
     return row.at(i);
 }
+
 bool operator !=(const Matrix::Row& a, const Matrix::Row& b)
 {
     return a.row != b.row;
