@@ -35,5 +35,9 @@ int main()
         out_of_range_catched = true;
     }
     assert(out_of_range_catched);
+
+    const Matrix m_c(rows, cols);
+    m_c[1][2] =5;
+    assert(m_c != m); 
     return 0;
 }

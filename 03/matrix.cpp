@@ -22,13 +22,14 @@ size_t Matrix::getColumns() const
     return (rows.size() ? rows.back().size() : 0);
 }
 
-void Matrix::operator *=(int mult)
+const Matrix& Matrix::operator *=(int mult)
 {
     for(auto& row : rows)
     {
         for(auto& cell : row.row)
             cell *= mult;
     }
+    return *this;
 }
 
 Matrix::Row& Matrix::operator [](size_t i)
@@ -65,16 +66,8 @@ bool operator !=(const Matrix& a, const Matrix& b)
 {
     if(a.getRows() != b.getRows() || a.getColumns() != b.getColumns())
         return true;
-    auto it_a = a.rows.begin();
-    auto it_b = b.rows.begin();
-    while(it_a != a.rows.end() && it_b != b.rows.end())
-    {
-        if(*it_a != *it_b)
+    for(size_t i = 0; i < a.getRows(); ++i)
+        if(a[i] != b[i])
             return true;
-        ++it_a;
-        ++it_b;
-    }
-    if(it_a != a.rows.end() || it_b != b.rows.end())
-        return true;
     return false;
 }

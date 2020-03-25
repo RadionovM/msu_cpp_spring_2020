@@ -25,14 +25,10 @@ class Matrix
 
         Matrix::Row& operator [](size_t i);
         Matrix::Row operator [](size_t i) const;
-        void operator *=(int mult);
+        const Matrix& operator *=(int mult);
 
     private:
         std::vector<Row> rows;
-    friend bool operator ==(const Matrix& a, const Matrix& b);
-    friend bool operator !=(const Matrix& a, const Matrix& b);
+        friend bool operator ==(const Matrix& a, const Matrix& b);
+        friend bool operator !=(const Matrix& a, const Matrix& b);
 };
-
-bool operator !=(const Matrix::Row& a, const Matrix::Row& b);
-bool operator ==(const Matrix& a, const Matrix& b);
-bool operator !=(const Matrix& a, const Matrix& b);
