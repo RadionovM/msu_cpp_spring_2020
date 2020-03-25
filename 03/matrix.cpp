@@ -36,7 +36,17 @@ Matrix::Row& Matrix::operator [](size_t i)
     return rows.at(i);
 }
 
+Matrix::Row Matrix::operator [](size_t i) const
+{
+    return rows.at(i);
+}
+
 int& Matrix::Row::operator [](size_t i)
+{
+    return row.at(i);
+}
+
+int Matrix::Row::operator [](size_t i) const
 {
     return row.at(i);
 }

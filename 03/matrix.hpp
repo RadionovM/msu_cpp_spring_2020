@@ -17,12 +17,14 @@ class Matrix
 
             public:
                 int& operator [](size_t i);
+                int operator [](size_t i) const;
 
             friend Matrix;
             friend bool operator !=(const Matrix::Row& a, const Matrix::Row& b);
         };
 
         Matrix::Row& operator [](size_t i);
+        Matrix::Row operator [](size_t i) const;
         void operator *=(int mult);
 
     private:
