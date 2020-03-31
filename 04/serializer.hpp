@@ -37,18 +37,20 @@ private:
     Error process(T&& val)// по сути для uint64 только
     {
         out_ << val << separator;
+        return Error::NoError;
     }
 
     Error process(bool val)//??? не специализация а просто перегрузка 
     {
         out_ << (val ? "true" : "false") << separator;
+        return Error::NoError;
     }
 
     template <class Arg, class... Args>
     Error process(Arg&& val, Args&&... args)
     {
         process(val);
-        process(std::forward<Args>(args)...);
+        return process(std::forward<Args>(args)...);
     }
 
 
@@ -76,14 +78,17 @@ public:
     {
         return process(args...);
     }
+
 private:
     template <class T>
-    Error process(T& val)// по сути для uint64 только
+    Error process(T& val)
     {
         std::string text;
         in_ >> text;
         try
         {
+            if(!text.empty() && text[0] == '-')
+                throw std::out_of_range("");
             val = std::stoull(text);
         }
         catch(std::invalid_argument)
@@ -113,10 +118,11 @@ private:
     }
 
     template <class Arg, class... Args>
-    Error process(Arg& val, Args&&... args)// на самом деле class Arg это uint64
+    Error process(Arg& val, Args&&... args)
     {
-        process(val);
-        process(std::forward<Args>(args)...);
+        if(process(val) != Error::NoError)
+            return Error::CorruptedArchive;
+        return process(std::forward<Args>(args)...);
     }
 
     std::istream& in_;
