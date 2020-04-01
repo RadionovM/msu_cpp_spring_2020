@@ -27,7 +27,7 @@ public:
     }
 
     template <class... ArgsT>
-    Error operator()(ArgsT... args)
+    Error operator()(const ArgsT&... args)
     {
         return process(args...);
     }
@@ -91,11 +91,11 @@ private:
                 throw std::out_of_range("");
             val = std::stoull(text);
         }
-        catch(std::invalid_argument)
+        catch(const std::invalid_argument& e)
         {
             return Error::CorruptedArchive;
         }
-        catch(std::out_of_range)
+        catch(const std::out_of_range& e)
         {
             return Error::CorruptedArchive;
         }
