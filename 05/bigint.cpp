@@ -61,6 +61,7 @@ const BigInt& BigInt::operator=(int64_t x)
     if(!x)
     {
         size = 1;
+        delete[] data;
         data = new int8_t[1]();
         return *this;
     }
@@ -108,6 +109,7 @@ BigInt BigInt::operator+(const BigInt& other) const
     int sum;
     BigInt tmp;
     tmp.size = max_size + 1;
+    delete[] tmp.data;
     tmp.data = new int8_t[tmp.size + 1]();
     tmp.sign = sign;
 
@@ -159,6 +161,7 @@ BigInt BigInt::operator-(const BigInt& other) const
     int equal {1};
     BigInt tmp;
     tmp.size = max_size + 1;
+    delete[] tmp.data;
     tmp.data = new int8_t[tmp.size + 1]();
     tmp.sign = (size > other.size ? sign : -1*other.sign);
 
@@ -188,12 +191,14 @@ BigInt BigInt::operator-(const BigInt& other) const
         {
             tmp.size = 1;
             tmp.sign = 1;
+            delete[] tmp.data;
             tmp.data = new int8_t[1];
             tmp.data[0] = 0;
             return tmp;
         }
     }
     tmp.size = max_size;
+    delete[] tmp.data;
     tmp.data = new int8_t[max_size]();
 
     for (int i=0; i < min_size; ++i) 
