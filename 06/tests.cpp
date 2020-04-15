@@ -1,8 +1,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "format.h"
-
+#include "format.hpp"
 #define checkEqual(x, y) \
     do { \
         if ((x) != (y)) \
