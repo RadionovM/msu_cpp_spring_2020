@@ -107,6 +107,7 @@ int main()
         buffer.final_state = true;
         int64_t result1 = f1.get();
         int64_t result2 = f2.get();
+        fprintf(stderr,"Input sum: %ld; calculate sum: %ld\n", sum, result1 + result2);
         assert(sum == result1 + result2);
     }
     fprintf(stderr,"ALL TESTS ARE PASSED\n");
